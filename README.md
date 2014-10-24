@@ -1,7 +1,7 @@
 MaterialTabs
 ============
 
-Custom Tabs with Material Design effects for pre-Lollipop devices
+Custom Tabs with Material Design animations for pre-Lollipop devices
 
 [Download example apk with Text](https://raw.github.com/neokree/MaterialTabs/master/Sample-MaterialTab/bin/Sample-MaterialTab.apk)
 [Download example apk with Icon](https://raw.github.com/neokree/MaterialTabs/master/Sample-MaterialTabWithIcons/bin/Sample-MaterialTab.apk)
