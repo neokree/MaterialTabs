@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.content.res.Resources.Theme;
 import android.graphics.Point;
 import android.os.Build;
@@ -27,6 +28,7 @@ public class MaterialTabHost extends android.support.v7.widget.Toolbar {
 	private int accentColor;
 	private int textColor;
 	private List<MaterialTab> tabs;
+	private boolean hasIcons;
 	
 	public MaterialTabHost(Context context) {
 		this(context, null);
@@ -51,6 +53,20 @@ public class MaterialTabHost extends android.support.v7.widget.Toolbar {
 		accentColor = typedValue.data;
 		theme.resolveAttribute(R.attr.actionMenuTextColor, typedValue, true);
 		textColor = typedValue.data;
+		
+		// get attributes
+		if(attrs != null) {
+			TypedArray a = context.getTheme().obtainStyledAttributes(attrs,R.styleable.MaterialTabHost, 0, 0);
+			
+			try {
+				hasIcons = a.getBoolean(R.styleable.MaterialTabHost_hasIcons, false);
+			} finally {
+				a.recycle();
+			}
+		}
+		else {
+			hasIcons = false;
+		}
 		
 		// initialize tabs list
 		tabs = new LinkedList<MaterialTab>();
@@ -110,7 +126,7 @@ public class MaterialTabHost extends android.support.v7.widget.Toolbar {
 	}
 	
 	public MaterialTab newTab() {
-		return new MaterialTab(this.getContext());
+		return new MaterialTab(this.getContext(),hasIcons);
 	}
 	
 	public void setSelectedNavigationItem(int position) {

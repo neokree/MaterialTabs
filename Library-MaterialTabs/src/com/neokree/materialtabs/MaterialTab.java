@@ -5,8 +5,11 @@ import java.util.Locale;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,32 +26,48 @@ import at.markushi.ui.RevealColorView;
 public class MaterialTab implements View.OnTouchListener {
 	
 	private View completeView;
-	
+	private ImageView icon;
 	private TextView text;
 	private RevealColorView background;
 	private ImageView selector;
 	
 	private Resources res;
 	private MaterialTabListener listener;
+	private Drawable iconDrawable;
+	
 	private int textColor; 
+	private int iconColor;
 	private int primaryColor;
 	private int accentColor;
+	
 	private boolean active;
 	private int position;
 	
-	public MaterialTab(Context ctx) {
+	public MaterialTab(Context ctx,boolean hasIcon) {
 		res = ctx.getResources();
 		
-		completeView = LayoutInflater.from(ctx).inflate(R.layout.material_tab, null);
-		completeView.setOnTouchListener(this);
+		if(!hasIcon) {
+			// if there is no icon
+			completeView = LayoutInflater.from(ctx).inflate(R.layout.material_tab, null);
+			
+			text = (TextView) completeView.findViewById(R.id.text);
+		}
+		else {
+			// with icon
+			completeView = LayoutInflater.from(ctx).inflate(R.layout.material_tab_icon, null);
+			
+			icon = (ImageView) completeView.findViewById(R.id.icon);
+		}
 		
-		text = (TextView) completeView.findViewById(R.id.text);
 		background = (RevealColorView) completeView.findViewById(R.id.reveal);
 		selector = (ImageView) completeView.findViewById(R.id.selector);
 		
+		// set the listener
+		completeView.setOnTouchListener(this);
 		
 		active = false;
-		textColor = Color.parseColor("#FFFFFF"); // default white text
+		textColor = Color.WHITE; // default white text
+		iconColor = Color.WHITE;
 	}
 	
 	
@@ -62,7 +81,17 @@ public class MaterialTab implements View.OnTouchListener {
 	}
 	
 	public void setTextColor(int color) {
-		
+		textColor = color;
+		if(text != null) {
+			text.setTextColor(color);
+		}
+	}
+	
+	public void setIconColor(int color) {
+		iconColor = color;
+		if(icon != null) {
+			icon.setImageBitmap(colorDrawable(iconDrawable,color));
+		}
 	}
 
 	public MaterialTab setText(CharSequence text) {
@@ -70,9 +99,19 @@ public class MaterialTab implements View.OnTouchListener {
 		return this;
 	}
 	
+	public MaterialTab setIcon(Drawable icon) {
+		iconDrawable = icon;
+		return this;
+	}
+	
 	public void disableTab() {
 		// set 60% alpha to text color
-		this.text.setTextColor(Color.argb(153 ,Color.red(textColor), Color.green(textColor), Color.blue(textColor)));
+		if(text != null)
+			this.text.setTextColor(Color.argb(0x99 ,Color.red(textColor), Color.green(textColor), Color.blue(textColor)));
+		// set 60% alpha to icon 
+		if(icon != null)
+			setIconAlpha(0x99);
+
 		// set transparent the selector view
 		this.selector.setBackgroundColor(res.getColor(android.R.color.transparent));
 		
@@ -84,7 +123,12 @@ public class MaterialTab implements View.OnTouchListener {
 	
 	public void activateTab() {
 		// set full color text
-		this.text.setTextColor(textColor);
+		if(text != null)
+			this.text.setTextColor(textColor);
+		// set 100% alpha to icon
+		if(icon != null)
+			setIconAlpha(0xFF);
+			
 		// set accent color to selector view
 		this.selector.setBackgroundColor(accentColor);
 		
@@ -150,6 +194,22 @@ public class MaterialTab implements View.OnTouchListener {
 
 	public void setPosition(int position) {
 		this.position = position;
+	}
+
+
+	private Bitmap colorDrawable(Drawable iconDrawable, int color) {
+		// TODO
+		return null;
+	}
+
+	
+	@SuppressLint("NewApi")
+	private void setIconAlpha(int alpha) {
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+			this.icon.setImageAlpha(alpha);
+		else {
+			this.icon.setImageBitmap(colorDrawable(iconDrawable,Color.argb(alpha, Color.red(iconColor), Color.green(iconColor), Color.blue(iconColor))));
+		}
 	}
 
 	
