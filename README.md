@@ -3,7 +3,7 @@ MaterialTabs
 
 Custom Tabs with Material Design animations for pre-Lollipop devices
 
-[Download example apk with Text](https://raw.github.com/neokree/MaterialTabs/master/Sample-MaterialTab/bin/Sample-MaterialTab.apk)
+[Download example apk with Text](https://raw.github.com/neokree/MaterialTabs/master/Sample-MaterialTab/bin/Sample-MaterialTab.apk)<br>
 [Download example apk with Icon](https://raw.github.com/neokree/MaterialTabs/master/Sample-MaterialTabWithIcons/bin/Sample-MaterialTab.apk)
 
 It requires 14+ API and android support v7 (Toolbar)
