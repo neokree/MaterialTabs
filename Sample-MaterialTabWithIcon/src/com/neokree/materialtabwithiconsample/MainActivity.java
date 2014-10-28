@@ -5,23 +5,16 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.neokree.materialtabs.MaterialTab;
 import com.neokree.materialtabs.MaterialTabHost;
 import com.neokree.materialtabs.MaterialTabListener;
-import com.neokree.materialtabwithiconsample.R;
 
 public class MainActivity extends ActionBarActivity implements MaterialTabListener {
 	
@@ -92,7 +85,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 		}
 
 		public Fragment getItem(int num) {
-            return new indexFragment();
+            return new IndexFragment();
         }
 
         @Override
@@ -111,18 +104,6 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         }
         
     }
-	
-	private class indexFragment extends Fragment {
-		@Override
-		public View onCreateView(LayoutInflater inflater,
-				@Nullable ViewGroup container,
-				@Nullable Bundle savedInstanceState) {
-			TextView text = new TextView(container.getContext());
-			text.setText("Section");
-			text.setGravity(Gravity.CENTER);
-			return text;
-		}
-	}
 
 	/*
 	 * It doesn't matter the color of the icons, but they must have solid colors

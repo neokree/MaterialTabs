@@ -3,18 +3,12 @@ package com.neokree.materialtabsample;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.neokree.materialtabs.MaterialTab;
 import com.neokree.materialtabs.MaterialTabHost;
@@ -61,6 +55,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 		
 		// set the first item selected
 		tabHost.setSelectedNavigationItem(0);
+		//tabHost.setTextColor(Color.WHITE);
 	}
 
 	@Override
@@ -105,15 +100,4 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         
     }
 	
-	private class indexFragment extends Fragment {
-		@Override
-		public View onCreateView(LayoutInflater inflater,
-				@Nullable ViewGroup container,
-				@Nullable Bundle savedInstanceState) {
-			TextView text = new TextView(container.getContext());
-			text.setText("Section");
-			text.setGravity(Gravity.CENTER);
-			return text;
-		}
-	}
 }
