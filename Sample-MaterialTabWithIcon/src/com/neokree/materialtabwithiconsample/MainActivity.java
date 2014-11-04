@@ -58,9 +58,6 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                             .setTabListener(this)
                             );
         }
-		
-		// set the first item selected
-		tabHost.setSelectedNavigationItem(0);
 	}
 
 	@Override

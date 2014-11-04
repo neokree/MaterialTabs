@@ -53,9 +53,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                             );
         }
 		
-		// set the first item selected
-		tabHost.setSelectedNavigationItem(0);
-		//tabHost.setTextColor(Color.WHITE);
+		
 	}
 
 	@Override
