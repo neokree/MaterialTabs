@@ -70,8 +70,8 @@ MaterialTabHost tabHost;
 
 N.B. Your activity must <code>extends ActionBarActivity implements MaterialTabListener</code>
 
-<h3>Maven compatibility coming soon...</h3>
-For now try to import project with AndroidStudio.
+<h3>Grandle compatibility can not work</h3>
+Actually I'm not developing through Android Studio. That it means I build for my first time the library with gradle. If you cannot import it with android studio please open a Issues.
 
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen.png" alt="screenshot" width="300px" height="auto" />
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen-icon.png" alt="screenshot" width="300px" height="auto" />
