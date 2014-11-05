@@ -1901,7 +1901,6 @@ containing a value of this type.
         public static final int dialog_fixed_width_minor=0x7f08000d;
         public static final int disabled_alpha_material_dark=0x7f080001;
         public static final int disabled_alpha_material_light=0x7f080000;
-        public static final int materialIconDimension=0x7f08002e;
         public static final int materialTextTab=0x7f08002d;
         public static final int tabSelectorHeight=0x7f08002c;
         public static final int tabhostHeight=0x7f08002b;

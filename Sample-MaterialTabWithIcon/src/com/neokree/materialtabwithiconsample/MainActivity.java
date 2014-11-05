@@ -58,6 +58,8 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                             .setTabListener(this)
                             );
         }
+		
+		tabHost.setAccentColor(Color.BLUE);
 	}
 
 	@Override

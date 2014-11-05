@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
-
+    
+	<!-- Your ActionBar -->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -12,6 +13,7 @@
         android:background="?attr/colorPrimary" >
     </android.support.v7.widget.Toolbar>
 
+    <!-- Your material design style tabs -->
     <com.neokree.materialtabs.MaterialTabHost
         android:id="@+id/materialTabHost"
         android:layout_width="match_parent"
@@ -21,6 +23,7 @@
 
     </com.neokree.materialtabs.MaterialTabHost>
     
+    <!-- Your View Pager for sliding content -->
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"

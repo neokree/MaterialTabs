@@ -542,7 +542,6 @@ int dimen dialog_fixed_width_major 0x7f08000c
 int dimen dialog_fixed_width_minor 0x7f08000d
 int dimen disabled_alpha_material_dark 0x7f080001
 int dimen disabled_alpha_material_light 0x7f080000
-int dimen materialIconDimension 0x7f08002e
 int dimen materialTextTab 0x7f08002d
 int dimen tabSelectorHeight 0x7f08002c
 int dimen tabhostHeight 0x7f08002b

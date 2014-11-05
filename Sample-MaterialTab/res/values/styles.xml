@@ -15,9 +15,9 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="colorPrimary">@color/teal_500</item>
-         <item name="colorPrimaryDark">@color/teal_800</item>
-          <item name="colorAccent">@color/amber_A400</item>
+        <item name="colorPrimary">@color/light_blue_500</item>
+         <item name="colorPrimaryDark">@color/light_blue_800</item>
+          <item name="colorAccent">@color/grey_1000</item>
         <item name="windowActionBar">false</item>
     </style>
 
