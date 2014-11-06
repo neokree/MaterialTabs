@@ -14,12 +14,12 @@ Dependency: [Android-UI](https://github.com/markushi/android-ui) Reveal Color Vi
 define it in xml layout
 ```xml
 <!-- for Text Tabs -->
-<com.neokree.materialtabs.MaterialTabHost
+<it.neokree.materialtabs.MaterialTabHost
         android:id="@+id/materialTabHost"
         android:layout_width="match_parent"
         android:layout_height="48dp" >
 <!-- for icon tabs --> 
-<com.neokree.materialtabs.MaterialTabHost
+<it.neokree.materialtabs.MaterialTabHost
         android:id="@+id/materialTabHost"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -70,8 +70,17 @@ MaterialTabHost tabHost;
 
 N.B. Your activity must <code>extends ActionBarActivity implements MaterialTabListener</code>
 
-<h3>Grandle compatibility can not work</h3>
-Actually I'm not developing through Android Studio. That it means I build for my first time the library with gradle. If you cannot import it with android studio please open a Issues.
+<h3>How to import</h3>
+<h6>Eclipse </h6>
+Import Library-MaterialTabs into eclipse. <br>
+Now right click on your project -> Properties -> Android -> Add (under library).<br>
+Click Apply.
+<h6>Android Studio</h6>
+Download all repository and go to MaterialTabs/Library-MaterialTab/bin<br>
+copy library-materialtabs.jar where you want, then open your project in Android Studio<br>
+Files -> Project Structure -> + ( on the top left ) -> Import .JAR or .AAR Package -> Next<br>
+Choose library-materialtabs.jar and Finish.<br>
+
 
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen.png" alt="screenshot" width="300px" height="auto" />
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen-icon.png" alt="screenshot" width="300px" height="auto" />
