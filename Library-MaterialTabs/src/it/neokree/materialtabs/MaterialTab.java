@@ -5,7 +5,6 @@ import java.util.Locale;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -66,8 +65,8 @@ public class MaterialTab implements View.OnTouchListener {
 		completeView.setOnTouchListener(this);
 		
 		active = false;
-		textColor = Color.WHITE; // default white text
-		iconColor = Color.WHITE;
+		textColor = Color.WHITE; // default white text 
+		iconColor = Color.WHITE; // and icon
 	}
 	
 	
@@ -87,11 +86,11 @@ public class MaterialTab implements View.OnTouchListener {
 		}
 	}
 	
-	public void setIconColor(int color) {
-		iconColor = color;
-		if(icon != null) {
-			icon.setImageBitmap(colorDrawable(iconDrawable,color));
-		}
+	public void setIconColor(int color)
+	{
+	    this.iconColor = color;
+	    if (this.icon != null)
+	      this.icon.setColorFilter(color);
 	}
 
 	public MaterialTab setText(CharSequence text) {
@@ -101,6 +100,9 @@ public class MaterialTab implements View.OnTouchListener {
 	
 	public MaterialTab setIcon(Drawable icon) {
 		iconDrawable = icon;
+		
+		this.icon.setImageDrawable(icon);
+		this.setIconColor(this.iconColor);
 		return this;
 	}
 	
@@ -195,22 +197,16 @@ public class MaterialTab implements View.OnTouchListener {
 	public void setPosition(int position) {
 		this.position = position;
 	}
-
-
-	private Bitmap colorDrawable(Drawable iconDrawable, int color) {
-		// TODO
-		return null;
-	}
-
 	
-	@SuppressLint("NewApi")
-	private void setIconAlpha(int alpha) {
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-			this.icon.setImageAlpha(alpha);
-		else {
-			this.icon.setImageBitmap(colorDrawable(iconDrawable,Color.argb(alpha, Color.red(iconColor), Color.green(iconColor), Color.blue(iconColor))));
-		}
+	@SuppressLint({"NewApi"})
+	private void setIconAlpha(int paramInt)
+	{
+	    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+	    {
+	      this.icon.setImageAlpha(paramInt);
+	      return;
+	    }
+	    this.icon.setColorFilter(Color.argb(paramInt, Color.red(this.iconColor), Color.green(this.iconColor), Color.blue(this.iconColor)));
 	}
-
 	
 }

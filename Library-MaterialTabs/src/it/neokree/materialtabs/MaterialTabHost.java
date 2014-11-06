@@ -7,13 +7,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.content.res.Resources.Theme;
-import android.graphics.Point;
-import android.os.Build;
+import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.Display;
-import android.view.WindowManager;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 
 /**
@@ -22,11 +20,12 @@ import android.view.WindowManager;
  *
  */
 @SuppressLint("InflateParams")
-public class MaterialTabHost extends android.support.v7.widget.Toolbar {
+public class MaterialTabHost extends android.support.v7.widget.Toolbar implements OnGlobalLayoutListener {
 	
 	private int primaryColor;
 	private int accentColor;
 	private int textColor;
+	private int iconColor;
 	private List<MaterialTab> tabs;
 	private boolean hasIcons;
 	
@@ -51,8 +50,8 @@ public class MaterialTabHost extends android.support.v7.widget.Toolbar {
 		primaryColor = typedValue.data;
 		theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
 		accentColor = typedValue.data;
-		theme.resolveAttribute(R.attr.actionMenuTextColor, typedValue, true);
-		textColor = typedValue.data;
+		iconColor = Color.WHITE;
+		textColor = Color.WHITE;
 		
 		// get attributes
 		if(attrs != null) {
@@ -96,6 +95,14 @@ public class MaterialTabHost extends android.support.v7.widget.Toolbar {
 		}
 	}
 	
+	public void setIconColor(int color) {
+		this.iconColor = color;
+		
+		for(MaterialTab tab : tabs) {
+			tab.setIconColor(color);
+		}
+	}
+	
 	public void addTab(MaterialTab tab) {
 		if(tabs.size() + 1 > 3) {
 			throw new RuntimeException("Number of tab currently not supported");
@@ -105,22 +112,11 @@ public class MaterialTabHost extends android.support.v7.widget.Toolbar {
 			tab.setAccentColor(accentColor);
 			tab.setPrimaryColor(primaryColor);
 			tab.setTextColor(textColor);
+			tab.setIconColor(iconColor);
 			tab.setPosition(tabs.size());
 			
 			// insert new tab in list
 			tabs.add(tab);
-			
-			// remove all views
-			super.removeAllViews(); 
-			
-			// get the tab width
-			int tabWidth = this.getScreenWidth() / tabs.size();
-			
-			// set params for resizing tabs width
-			Toolbar.LayoutParams params = new Toolbar.LayoutParams(tabWidth,Toolbar.LayoutParams.MATCH_PARENT );
-			for(MaterialTab t : tabs) {
-				super.addView(t.getView(),params);
-			}
 		}
 		
 	}
@@ -155,21 +151,30 @@ public class MaterialTabHost extends android.support.v7.widget.Toolbar {
 		}
 		super.removeAllViews();
 	}
+
+	@Override
+	public void onGlobalLayout() {
+		// set first tab selected
+		this.setSelectedNavigationItem(0);
+		
+	}
 	
-	@SuppressWarnings("deprecation")
-	@SuppressLint("NewApi")
-	private int getScreenWidth() {
-		Display display = ((WindowManager) this.getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-		int width = 0;
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			Point p = new Point();
-		    display.getSize(p);
-		    width = p.x;
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		super.onSizeChanged(w, h, oldw, oldh);
+		
+		super.removeAllViews();
+		
+		if(!tabs.isEmpty()) {
+			int tabWidth = this.getWidth() / tabs.size();
+			
+			// set params for resizing tabs width
+			Toolbar.LayoutParams params = new Toolbar.LayoutParams(tabWidth,Toolbar.LayoutParams.MATCH_PARENT );
+			for(MaterialTab t : tabs) {
+				super.addView(t.getView(),params);
+			}
+			
+			this.setSelectedNavigationItem(0);
 		}
-		else {
-			width = display.getWidth();
-		}
-	    
-	    return width;
 	}
 }

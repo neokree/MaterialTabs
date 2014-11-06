@@ -13,14 +13,14 @@
         android:background="?attr/colorPrimary" >
     </android.support.v7.widget.Toolbar>
 
-    <com.neokree.materialtabs.MaterialTabHost
+    <it.neokree.materialtabs.MaterialTabHost
         android:id="@+id/materialTabHost"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         app:hasIcons="true" >
-    </com.neokree.materialtabs.MaterialTabHost>
+    </it.neokree.materialtabs.MaterialTabHost>
     
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

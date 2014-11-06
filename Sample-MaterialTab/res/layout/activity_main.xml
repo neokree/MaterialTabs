@@ -14,14 +14,14 @@
     </android.support.v7.widget.Toolbar>
 
     <!-- Your material design style tabs -->
-    <com.neokree.materialtabs.MaterialTabHost
+    <it.neokree.materialtabs.MaterialTabHost
         android:id="@+id/materialTabHost"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/toolbar" >
 
-    </com.neokree.materialtabs.MaterialTabHost>
+    </it.neokree.materialtabs.MaterialTabHost>
     
     <!-- Your View Pager for sliding content -->
     <android.support.v4.view.ViewPager
