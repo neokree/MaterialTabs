@@ -10,9 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.neokree.materialtabs.MaterialTab;
-import com.neokree.materialtabs.MaterialTabHost;
-import com.neokree.materialtabs.MaterialTabListener;
+import it.neokree.materialtabs.MaterialTab;
+import it.neokree.materialtabs.MaterialTabHost;
+import it.neokree.materialtabs.MaterialTabListener;
 
 public class MainActivity extends ActionBarActivity implements MaterialTabListener {
 	
