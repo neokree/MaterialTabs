@@ -27,6 +27,18 @@ define it in xml layout
 ```
 <em>( I'm working on use wrap_content instead 48dp)</em>
 
+change your base theme style to AppCompat ( res/values/styles.xml ) and add Lollipop default variables.
+```xml
+<!-- Base application theme. -->
+<style name="AppTheme" parent="Theme.AppCompat.Light">
+<!-- Customize your theme here. -->
+<item name="colorPrimary">@color/light_blue_500</item>
+<item name="colorPrimaryDark">@color/light_blue_800</item>
+<item name="colorAccent">@color/grey_1000</item>
+<item name="windowActionBar">false</item>
+</style>
+```
+
 Connect to java code and add to viewPager
 ```java
 MaterialTabHost tabHost;
@@ -69,6 +81,7 @@ MaterialTabHost tabHost;
 ```
 
 N.B. Your activity must <code>extends ActionBarActivity implements MaterialTabListener</code>
+
 
 <h3>How to import</h3>
 <h6>Eclipse </h6>
