@@ -72,14 +72,19 @@ N.B. Your activity must <code>extends ActionBarActivity implements MaterialTabLi
 
 <h3>How to import</h3>
 <h6>Eclipse </h6>
-Import Library-MaterialTabs into eclipse. <br>
+Import Android UI Library into eclipse <br>
+Import Library-MaterialTabs into eclipse and add Android UI as dependancy. <br>
 Now right click on your project -> Properties -> Android -> Add (under library).<br>
 Click Apply.
 <h6>Android Studio</h6>
-Download all repository and go to MaterialTabs/Library-MaterialTab/bin<br>
-copy library-materialtabs.jar where you want, then open your project in Android Studio<br>
-Files -> Project Structure -> + ( on the top left ) -> Import .JAR or .AAR Package -> Next<br>
-Choose library-materialtabs.jar and Finish.<br>
+Add [Android-UI module](https://github.com/markushi/android-ui) to your project.<br>
+Download and add MaterialTabsModule to your project as module.<br>
+Add this to your build.gradle:
+```java 
+dependencies {
+    compile project(':MaterialTabsModule')
+}
+```
 
 
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen.png" alt="screenshot" width="300px" height="auto" />
