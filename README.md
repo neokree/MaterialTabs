@@ -1,10 +1,11 @@
 MaterialTabs
 ============
 
-Custom Tabs with Material Design animations for pre-Lollipop devices
+Custom Tabs with Material Design animations for pre-Lollipop devices<br>
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialTabs-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1105)
 
-[Download example apk with Text](https://raw.github.com/neokree/MaterialTabs/master/Sample-MaterialTab/bin/Sample-MaterialTab.apk)<br>
-[Download example apk with Icon](https://raw.github.com/neokree/MaterialTabs/master/Sample-MaterialTabWithIcons/bin/Sample-MaterialTab.apk)
+[Download example apk with Text](https://raw.github.com/neokree/MaterialTabs/master/materialtabs-Text.apk)<br>
+[Download example apk with Icon](https://raw.github.com/neokree/MaterialTabs/master/materialtabs-Icons.apk)
 
 It requires 14+ API and android support v7 (Toolbar)
 
@@ -84,13 +85,7 @@ N.B. Your activity must <code>extends ActionBarActivity implements MaterialTabLi
 
 
 <h3>How to import</h3>
-<h6>Eclipse </h6>
-Import Android UI Library into eclipse <br>
-Import Library-MaterialTabs into eclipse and add Android UI as dependancy. <br>
-Now right click on your project -> Properties -> Android -> Add (under library).<br>
-Click Apply.
 <h6>Android Studio</h6>
-Add [Android-UI module](https://github.com/markushi/android-ui) to your project.<br>
 Download and add MaterialTabsModule to your project as module.<br>
 Add this to your build.gradle:
 ```java 
@@ -101,13 +96,10 @@ dependencies {
 
 <h3>Limitations</h3>
 Actually, this library have some limitations: 
-- Max of 3 tabs / No scrollable tabs
+- No scrollable tabs for tablets
 - No selector animations
 
 These problems are currently in development
 
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen.png" alt="screenshot" width="300px" height="auto" />
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen-icon.png" alt="screenshot" width="300px" height="auto" />
-
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialTabs-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1105)
-
