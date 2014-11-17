@@ -2,7 +2,8 @@ MaterialTabs
 ============
 
 Custom Tabs with Material Design animations for pre-Lollipop devices<br>
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialTabs-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1105)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialTabs-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1105)&ensp;&ensp;&ensp;&ensp;&ensp;[![Donate](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TLLU42DEL36RY)
+
 
 [Download example apk with Text](https://raw.github.com/neokree/MaterialTabs/master/materialtabs-Text.apk)<br>
 [Download example apk with Icon](https://raw.github.com/neokree/MaterialTabs/master/materialtabs-Icons.apk)
