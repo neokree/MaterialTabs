@@ -22,13 +22,14 @@ import android.widget.LinearLayout;
  *
  */
 @SuppressLint("InflateParams")
-public class MaterialTabHost extends HorizontalScrollView implements OnGlobalLayoutListener {
+public class MaterialTabHost extends HorizontalScrollView {
 	
 	private int primaryColor;
 	private int accentColor;
 	private int textColor;
 	private int iconColor;
 	private List<MaterialTab> tabs;
+    private List<Integer> tabsWidth;
 	private boolean hasIcons;
     private boolean isTablet;
     private float density;
@@ -82,6 +83,7 @@ public class MaterialTabHost extends HorizontalScrollView implements OnGlobalLay
 
 		// initialize tabs list
 		tabs = new LinkedList<MaterialTab>();
+        tabsWidth = new LinkedList<Integer>();
 
         // set background color
         super.setBackgroundColor(primaryColor);
@@ -158,6 +160,14 @@ public class MaterialTabHost extends HorizontalScrollView implements OnGlobalLay
 					tabs.get(i).disableTab();
 				}
 			}
+
+            // move the tab
+            int totalWidth = 0;//(int) ( 60 * density);
+            for(int i = 0;i<position + 1; i++) {
+                totalWidth += tabsWidth.get(i);
+            }
+            totalWidth -= (int) ( 60 * density);
+            this.smoothScrollTo(totalWidth,0);
 		}
 		
 	}
@@ -170,13 +180,6 @@ public class MaterialTabHost extends HorizontalScrollView implements OnGlobalLay
 		layout.removeAllViews();
 	}
 
-	@Override
-	public void onGlobalLayout() {
-		// when layout loads, set first tab selected
-		this.setSelectedNavigationItem(0);
-		
-	}
-	
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
@@ -209,16 +212,19 @@ public class MaterialTabHost extends HorizontalScrollView implements OnGlobalLay
                         View view = new View(layout.getContext());
                         view.setMinimumWidth((int) (60 * density));
                         layout.addView(view);
+                        tabsWidth.add((int) (60 * density));
                     }
 
                     params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
                     layout.addView(tab.getView(),params);
+                    tabsWidth.add(tabWidth);
 
                     if(i == tabs.size() - 1) {
                         // last tab
                         View view = new View(layout.getContext());
                         view.setMinimumWidth((int) (60 * density));
                         layout.addView(view);
+                        tabsWidth.add((int) (60 * density));
                     }
                 }
 
