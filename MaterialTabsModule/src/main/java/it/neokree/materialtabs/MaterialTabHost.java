@@ -161,13 +161,15 @@ public class MaterialTabHost extends HorizontalScrollView {
 				}
 			}
 
-            // move the tab
-            int totalWidth = 0;//(int) ( 60 * density);
-            for(int i = 0;i<position + 1; i++) {
-                totalWidth += tabsWidth.get(i);
+            // move the tab if it is slidable
+            if(scrollable) {
+                int totalWidth = 0;//(int) ( 60 * density);
+                for (int i = 0; i < position + 1; i++) {
+                    totalWidth += tabsWidth.get(i);
+                }
+                totalWidth -= (int) (60 * density);
+                this.smoothScrollTo(totalWidth, 0);
             }
-            totalWidth -= (int) ( 60 * density);
-            this.smoothScrollTo(totalWidth,0);
 		}
 		
 	}
