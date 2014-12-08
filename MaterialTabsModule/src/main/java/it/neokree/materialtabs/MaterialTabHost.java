@@ -17,6 +17,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 /**
  * A Toolbar that contains multiple tabs
  * @author neokree
@@ -24,7 +25,6 @@ import android.widget.TextView;
  */
 @SuppressLint("InflateParams")
 public class MaterialTabHost extends HorizontalScrollView {
-<<<<<<< HEAD
 	
 	private int primaryColor;
 	private int accentColor;
@@ -32,37 +32,26 @@ public class MaterialTabHost extends HorizontalScrollView {
 	private int iconColor;
 	private List<MaterialTab> tabs;
 	private boolean hasIcons;
-=======
-
-    private int primaryColor;
-    private int accentColor;
-    private int textColor;
-    private int iconColor;
-    private List<MaterialTab> tabs;
-    private List<Integer> tabsWidth;
-    private boolean hasIcons;
->>>>>>> FETCH_HEAD
     private boolean isTablet;
     private float density;
     private boolean scrollable;
 
     private LinearLayout layout;
-
-    public MaterialTabHost(Context context) {
-        this(context, null);
-    }
-
-    public MaterialTabHost(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public MaterialTabHost(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        super.setOverScrollMode(OVER_SCROLL_NEVER);
+	
+	public MaterialTabHost(Context context) {
+		this(context, null);
+	}
+	
+	public MaterialTabHost(Context context, AttributeSet attrs) {
+		this(context, attrs, 0);
+	}
+	
+	public MaterialTabHost(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+        super.setOverScrollMode(this.OVER_SCROLL_NEVER);
 
         layout = new LinearLayout(context);
         this.addView(layout);
-<<<<<<< HEAD
 		
 		// get attributes
 		if(attrs != null) {
@@ -83,39 +72,12 @@ public class MaterialTabHost extends HorizontalScrollView {
 		else {
 			hasIcons = false;
 		}
-=======
-
-        // get primary and accent color from AppCompat theme
-        Theme theme = context.getTheme();
-        TypedValue typedValue = new TypedValue();
-        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
-        primaryColor = typedValue.data;
-        theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
-        accentColor = typedValue.data;
-        iconColor = Color.WHITE;
-        textColor = Color.WHITE;
-
-        // get attributes
-        if(attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs,R.styleable.MaterialTabHost, 0, 0);
-
-            try {
-                hasIcons = a.getBoolean(R.styleable.MaterialTabHost_hasIcons, false);
-            } finally {
-                a.recycle();
-            }
-        }
-        else {
-            hasIcons = false;
-        }
->>>>>>> FETCH_HEAD
 
         this.isInEditMode();
         density = this.getResources().getDisplayMetrics().density;
         scrollable = false;
         isTablet = this.getResources().getBoolean(R.bool.isTablet);
 
-<<<<<<< HEAD
 		// initialize tabs list
 		tabs = new LinkedList<MaterialTab>();
 
@@ -158,51 +120,6 @@ public class MaterialTabHost extends HorizontalScrollView {
 	}
 	
 	public void addTab(MaterialTab tab) {
-=======
-        // initialize tabs list
-        tabs = new LinkedList<MaterialTab>();
-        tabsWidth = new LinkedList<Integer>();
-
-        // set background color
-        super.setBackgroundColor(primaryColor);
-    }
-
-    public void setPrimaryColor(int color) {
-        this.primaryColor = color;
-
-        setBackgroundColor(primaryColor);
-
-        for(MaterialTab tab : tabs) {
-            tab.setPrimaryColor(color);
-        }
-    }
-
-    public void setAccentColor(int color) {
-        this.accentColor = color;
-
-        for(MaterialTab tab : tabs) {
-            tab.setAccentColor(color);
-        }
-    }
-
-    public void setTextColor(int color) {
-        this.textColor = color;
-
-        for(MaterialTab tab : tabs) {
-            tab.setTextColor(color);
-        }
-    }
-
-    public void setIconColor(int color) {
-        this.iconColor = color;
-
-        for(MaterialTab tab : tabs) {
-            tab.setIconColor(color);
-        }
-    }
-
-    public void addTab(MaterialTab tab) {
->>>>>>> FETCH_HEAD
         // add properties to tab
         tab.setAccentColor(accentColor);
         tab.setPrimaryColor(primaryColor);
@@ -220,36 +137,27 @@ public class MaterialTabHost extends HorizontalScrollView {
             if(isTablet)
                 throw new RuntimeException("Tablet scrollable tabs are currently not supported");
         }
-    }
-
-    public void setTabs(List<MaterialTab> list) {
-        removeAllViews();
-        tabs.clear();
-        for (MaterialTab tab : list) {
-            addTab(tab);
-        }
-        update();
-    }
-
-    public MaterialTab newTab() {
-        return new MaterialTab(this.getContext(), hasIcons);
-    }
-
-    public void setSelectedNavigationItem(int position) {
-        if(position < 0 || position > tabs.size()) {
-            throw new RuntimeException("Index overflow");
-        } else {
-            // tab at position will select, other will deselect
-            for(int i = 0; i < tabs.size(); i++) {
-                MaterialTab tab = tabs.get(i);
-
-                if(i == position && !tab.isSelected()) {
-                    tab.activateTab();
-                }
-                else {
-                    tabs.get(i).disableTab();
-                }
-            }
+	}
+	
+	public MaterialTab newTab() {
+		return new MaterialTab(this.getContext(),hasIcons);
+	}
+	
+	public void setSelectedNavigationItem(int position) {
+		if(position < 0 || position > tabs.size()) {
+			throw new RuntimeException("Index overflow");
+		} else {
+			// tab at position will select, other will deselect
+			for(int i = 0; i < tabs.size(); i++) {
+				MaterialTab tab = tabs.get(i);
+				
+				if(i == position && !tab.isSelected()) {
+					tab.activateTab();
+				}
+				else {
+					tabs.get(i).disableTab();
+				}
+			}
 
             // move the tab if it is slidable
             if(scrollable) {
@@ -259,7 +167,6 @@ public class MaterialTabHost extends HorizontalScrollView {
                 }
                 this.smoothScrollTo(totalWidth, 0);
             }
-<<<<<<< HEAD
 		}
 		
 	}
@@ -271,37 +178,13 @@ public class MaterialTabHost extends HorizontalScrollView {
 		}
 		layout.removeAllViews();
 	}
-=======
-        }
-
-    }
-
-    @Override
-    public void removeAllViews() {
-        for(int i = 0; i<tabs.size();i++) {
-            tabs.remove(i);
-        }
-        layout.removeAllViews();
-    }
->>>>>>> FETCH_HEAD
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-<<<<<<< HEAD
         if(this.getWidth() != 0 && tabs.size() != 0)
             notifyDataSetChanged();
     }
-=======
-
-        update();
-    }
-
-    private void update() {
-        layout.removeAllViews();
-
-        if(!tabs.isEmpty()) {
->>>>>>> FETCH_HEAD
 
 
     public void notifyDataSetChanged() {
@@ -316,12 +199,6 @@ public class MaterialTabHost extends HorizontalScrollView {
             for (MaterialTab t : tabs) {
                 layout.addView(t.getView(), params);
             }
-<<<<<<< HEAD
-=======
-            this.setSelectedNavigationItem(0);
-        }
-    }
->>>>>>> FETCH_HEAD
 
         }
         else { //scrollable tabs
