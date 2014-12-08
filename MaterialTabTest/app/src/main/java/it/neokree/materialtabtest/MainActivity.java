@@ -1,6 +1,7 @@
 package it.neokree.materialtabtest;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -88,7 +89,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
         @Override
         public int getCount() {
-            return 7;
+            return 3;
         }
 
         @Override

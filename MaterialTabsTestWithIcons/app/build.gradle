@@ -22,5 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.0'
-    compile project(':MaterialTabsModule')
+    //compile project(':MaterialTabsModule')
+    compile 'it.neokree:MaterialTabs:0.6-SNAPSHOT'
 }

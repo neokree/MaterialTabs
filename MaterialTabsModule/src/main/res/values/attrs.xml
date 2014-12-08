@@ -2,8 +2,13 @@
 <resources>
     
     <declare-styleable name="MaterialTabHost">
-    	
+
+        <!-- Custom attributes -->
         <attr name="hasIcons" format="boolean" />
+        <attr name="primaryColor" format="color" />
+        <attr name="accentColor" format="color" />
+        <attr name="iconColor" format="color" />
+        <attr name="textColor" format="color"  />
         
     </declare-styleable>
     

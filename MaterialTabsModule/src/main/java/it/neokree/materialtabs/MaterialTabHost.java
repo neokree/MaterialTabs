@@ -3,17 +3,19 @@ package it.neokree.materialtabs;
 import java.util.LinkedList;
 import java.util.List;
 
+import it.neokree.materialtabs.R;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.content.res.Resources.Theme;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 /**
@@ -29,7 +31,6 @@ public class MaterialTabHost extends HorizontalScrollView {
 	private int textColor;
 	private int iconColor;
 	private List<MaterialTab> tabs;
-    private List<Integer> tabsWidth;
 	private boolean hasIcons;
     private boolean isTablet;
     private float density;
@@ -51,23 +52,19 @@ public class MaterialTabHost extends HorizontalScrollView {
 
         layout = new LinearLayout(context);
         this.addView(layout);
-
-		// get primary and accent color from AppCompat theme
-		Theme theme = context.getTheme();
-		TypedValue typedValue = new TypedValue();
-		theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
-		primaryColor = typedValue.data;
-		theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
-		accentColor = typedValue.data;
-		iconColor = Color.WHITE;
-		textColor = Color.WHITE;
 		
 		// get attributes
 		if(attrs != null) {
 			TypedArray a = context.getTheme().obtainStyledAttributes(attrs,R.styleable.MaterialTabHost, 0, 0);
 			
 			try {
+                // custom attributes
 				hasIcons = a.getBoolean(R.styleable.MaterialTabHost_hasIcons, false);
+
+                primaryColor = a.getColor(R.styleable.MaterialTabHost_primaryColor, Color.parseColor("#009688"));
+                accentColor = a.getColor(R.styleable.MaterialTabHost_accentColor,Color.parseColor("#00b0ff"));
+                iconColor = a.getColor(R.styleable.MaterialTabHost_iconColor,Color.WHITE);
+                textColor = a.getColor(R.styleable.MaterialTabHost_textColor,Color.WHITE);
 			} finally {
 				a.recycle();
 			}
@@ -83,7 +80,6 @@ public class MaterialTabHost extends HorizontalScrollView {
 
 		// initialize tabs list
 		tabs = new LinkedList<MaterialTab>();
-        tabsWidth = new LinkedList<Integer>();
 
         // set background color
         super.setBackgroundColor(primaryColor);
@@ -91,7 +87,9 @@ public class MaterialTabHost extends HorizontalScrollView {
 	
 	public void setPrimaryColor(int color) {
 		this.primaryColor = color;
-		
+
+        this.setBackgroundColor(primaryColor);
+
 		for(MaterialTab tab : tabs) {
 			tab.setPrimaryColor(color);
 		}
@@ -164,10 +162,9 @@ public class MaterialTabHost extends HorizontalScrollView {
             // move the tab if it is slidable
             if(scrollable) {
                 int totalWidth = 0;//(int) ( 60 * density);
-                for (int i = 0; i < position + 1; i++) {
-                    totalWidth += tabsWidth.get(i);
+                for (int i = 0; i < position; i++) {
+                    totalWidth += tabs.get(i).getView().getWidth();
                 }
-                totalWidth -= (int) (60 * density);
                 this.smoothScrollTo(totalWidth, 0);
             }
 		}
@@ -182,65 +179,56 @@ public class MaterialTabHost extends HorizontalScrollView {
 		layout.removeAllViews();
 	}
 
-	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		super.onSizeChanged(w, h, oldw, oldh);
-		
-		layout.removeAllViews();
-		
-		if(!tabs.isEmpty()) {
-
-            if(!scrollable) { // not scrollable tabs
-                int tabWidth = this.getWidth() / tabs.size();
-
-                // set params for resizing tabs width
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
-                for (MaterialTab t : tabs) {
-                    layout.addView(t.getView(), params);
-                }
-
-            }
-            else { //scrollable tabs
-
-                for(int i = 0;i< tabs.size();i++) {
-                    LinearLayout.LayoutParams params;
-                    MaterialTab tab = tabs.get(i);
-
-                    int tabWidth = (int) (tab.getTabMinWidth() + (24 * density)); // 12dp + text/icon width + 12dp
-                    params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
-
-                    if(i == 0) {
-                        // first tab
-                        View view = new View(layout.getContext());
-                        view.setMinimumWidth((int) (60 * density));
-                        layout.addView(view);
-                        tabsWidth.add((int) (60 * density));
-                    }
-
-                    params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
-                    layout.addView(tab.getView(),params);
-                    tabsWidth.add(tabWidth);
-
-                    if(i == tabs.size() - 1) {
-                        // last tab
-                        View view = new View(layout.getContext());
-                        view.setMinimumWidth((int) (60 * density));
-                        layout.addView(view);
-                        tabsWidth.add((int) (60 * density));
-                    }
-                }
-
-            }
-			this.setSelectedNavigationItem(0);
-		}
-	}
-
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if(this.getWidth() != 0 && tabs.size() != 0)
+            notifyDataSetChanged();
+    }
 
-        // setting measured width + 48 dp height
-        this.setMeasuredDimension(this.getMeasuredWidth(), (int) (48 * density));
 
+    public void notifyDataSetChanged() {
+
+        layout.removeAllViews();
+
+        if(!scrollable) { // not scrollable tabs
+            int tabWidth = this.getWidth() / tabs.size();
+
+            // set params for resizing tabs width
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
+            for (MaterialTab t : tabs) {
+                layout.addView(t.getView(), params);
+            }
+
+        }
+        else { //scrollable tabs
+
+            for(int i = 0;i< tabs.size();i++) {
+                LinearLayout.LayoutParams params;
+                MaterialTab tab = tabs.get(i);
+
+                int tabWidth = (int) (tab.getTabMinWidth() + (24 * density)); // 12dp + text/icon width + 12dp
+                params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
+
+                if(i == 0) {
+                    // first tab
+                    View view = new View(layout.getContext());
+                    view.setMinimumWidth((int) (60 * density));
+                    layout.addView(view);
+                }
+
+                params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
+                layout.addView(tab.getView(),params);
+
+                if(i == tabs.size() - 1) {
+                    // last tab
+                    View view = new View(layout.getContext());
+                    view.setMinimumWidth((int) (60 * density));
+                    layout.addView(view);
+                }
+            }
+
+        }
+        this.setSelectedNavigationItem(0);
     }
 }
