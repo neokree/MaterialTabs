@@ -13,33 +13,27 @@ It requires 14+ API and android support v7 (Toolbar)
 Dependency: [Android-UI](https://github.com/markushi/android-ui) Reveal Color View
 
 <h3>How to use:</h3>
-define it in xml layout
+define it in xml layout with custom attributes
 ```xml
 <!-- for Text Tabs -->
 <it.neokree.materialtabs.MaterialTabHost
         android:id="@+id/materialTabHost"
         android:layout_width="match_parent"
-        android:layout_height="48dp" >
+        android:layout_height="48dp"
+        app:textColor="#FFFFFF"
+        app:primaryColor="YOUR_PRIMARY_COLOR"
+        app:accentColor="YOUR_ACCENT_COLOR" />
 <!-- for icon tabs --> 
 <it.neokree.materialtabs.MaterialTabHost
         android:id="@+id/materialTabHost"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        app:hasIcons="true" >
+        app:iconColor="#FFFFFF"
+        app:primaryColor="YOUR_PRIMARY_COLOR"
+        app:accentColor="YOUR_ACCENT_COLOR"
+        app:hasIcons="true"/>
 ```
 <em>( I'm working on use wrap_content instead 48dp)</em>
-
-change your base theme style to AppCompat ( res/values/styles.xml ) and add Lollipop default variables.
-```xml
-<!-- Base application theme. -->
-<style name="AppTheme" parent="Theme.AppCompat.Light">
-<!-- Customize your theme here. -->
-<item name="colorPrimary">@color/light_blue_500</item>
-<item name="colorPrimaryDark">@color/light_blue_800</item>
-<item name="colorAccent">@color/grey_1000</item>
-<item name="windowActionBar">false</item>
-</style>
-```
 
 Connect to java code and add to viewPager
 ```java
@@ -85,13 +79,12 @@ MaterialTabHost tabHost;
 N.B. Your activity must <code>extends ActionBarActivity implements MaterialTabListener</code>
 
 
-<h3>How to import</h3>
-<h6>Android Studio</h6>
-Download and add MaterialTabsModule to your project as module.<br>
+### How to import
+###### Android Studio
 Add this to your build.gradle:
 ```java 
 dependencies {
-    compile project(':MaterialTabsModule')
+    compile 'it.neokree:MaterialTabs:0.7'
 }
 ```
 
