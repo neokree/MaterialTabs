@@ -84,7 +84,7 @@ N.B. Your activity must <code>extends ActionBarActivity implements MaterialTabLi
 Add this to your build.gradle:
 ```java 
 dependencies {
-    compile 'it.neokree:MaterialTabs:0.7'
+    compile 'it.neokree:MaterialTabs:0.7.1'
 }
 ```
 
