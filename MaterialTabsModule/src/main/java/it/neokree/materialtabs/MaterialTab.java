@@ -160,38 +160,6 @@ public class MaterialTab implements View.OnTouchListener,Animator.AnimatorListen
 		lastTouchedPoint.x = (int) event.getX();
         lastTouchedPoint.y = (int) event.getY();
 
-        /*
-        // old effects
-		if(event.getAction() == MotionEvent.ACTION_DOWN ) {
-			// reveal the tab
-			this.background.reveal(point.x, point.y, Color.argb(0x80, Color.red(accentColor), Color.green(accentColor), Color.blue(accentColor)) ,0,250, null);
-
-			return true;
-		}
-		
-		if(event.getAction() == MotionEvent.ACTION_UP) {
-			// hide reveal
-			this.background.reveal(point.x, point.y, primaryColor,0,700, null);
-            //background.hide(point.x, point.y, primaryColor,0,700, null);
-			
-			// set the click 
-			if(listener != null) {
-				
-				if(active) {
-					// if the tab is active when the user click on it it will be reselect
-					listener.onTabReselected(this);
-				}
-				else {
-					listener.onTabSelected(this);
-				}
-			}
-			// if the tab is not activated, it will be active
-			if(!active)
-				this.activateTab();
-			
-			return true;
-		}
-		*/
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
             // do nothing
             return true;
@@ -231,6 +199,10 @@ public class MaterialTab implements View.OnTouchListener,Animator.AnimatorListen
 		this.listener = listener;
 		return this;
 	}
+
+    public MaterialTabListener getTabListener() {
+        return listener;
+    }
 
 
 	public int getPosition() {

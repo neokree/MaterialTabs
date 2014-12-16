@@ -84,17 +84,17 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         }
 
         public Fragment getItem(int num) {
-            return new Fragment();
+            return new FragmentText();
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 16;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Sezione";
+            return "Sezione " + position;
         }
 
     }

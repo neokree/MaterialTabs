@@ -2,19 +2,25 @@ package it.neokree.materialtabs;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import it.neokree.materialtabs.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -24,7 +30,7 @@ import android.widget.TextView;
  *
  */
 @SuppressLint("InflateParams")
-public class MaterialTabHost extends HorizontalScrollView {
+public class MaterialTabHost extends RelativeLayout implements View.OnClickListener {
 	
 	private int primaryColor;
 	private int accentColor;
@@ -36,7 +42,10 @@ public class MaterialTabHost extends HorizontalScrollView {
     private float density;
     private boolean scrollable;
 
+    private HorizontalScrollView scrollView;
     private LinearLayout layout;
+    private ImageButton left;
+    private ImageButton right;
 	
 	public MaterialTabHost(Context context) {
 		this(context, null);
@@ -48,11 +57,13 @@ public class MaterialTabHost extends HorizontalScrollView {
 	
 	public MaterialTabHost(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-        super.setOverScrollMode(this.OVER_SCROLL_NEVER);
 
+        scrollView = new HorizontalScrollView(context);
+        scrollView.setOverScrollMode(HorizontalScrollView.OVER_SCROLL_NEVER);
+        scrollView.setHorizontalScrollBarEnabled(false);
         layout = new LinearLayout(context);
-        this.addView(layout);
-		
+        scrollView.addView(layout);
+
 		// get attributes
 		if(attrs != null) {
 			TypedArray a = context.getTheme().obtainStyledAttributes(attrs,R.styleable.MaterialTabHost, 0, 0);
@@ -74,9 +85,9 @@ public class MaterialTabHost extends HorizontalScrollView {
 		}
 
         this.isInEditMode();
-        density = this.getResources().getDisplayMetrics().density;
         scrollable = false;
         isTablet = this.getResources().getBoolean(R.bool.isTablet);
+        density = this.getResources().getDisplayMetrics().density;
 
 		// initialize tabs list
 		tabs = new LinkedList<MaterialTab>();
@@ -133,9 +144,6 @@ public class MaterialTabHost extends HorizontalScrollView {
         if(tabs.size() == 4) {
             // switch tabs to scrollable before its draw
             scrollable = true;
-
-            if(isTablet)
-                throw new RuntimeException("Tablet scrollable tabs are currently not supported");
         }
 	}
 	
@@ -151,7 +159,7 @@ public class MaterialTabHost extends HorizontalScrollView {
 			for(int i = 0; i < tabs.size(); i++) {
 				MaterialTab tab = tabs.get(i);
 				
-				if(i == position && !tab.isSelected()) {
+				if(i == position) {
 					tab.activateTab();
 				}
 				else {
@@ -165,7 +173,7 @@ public class MaterialTabHost extends HorizontalScrollView {
                 for (int i = 0; i < position; i++) {
                     totalWidth += tabs.get(i).getView().getWidth();
                 }
-                this.smoothScrollTo(totalWidth, 0);
+                scrollView.smoothScrollTo(totalWidth, 0);
             }
 		}
 		
@@ -191,44 +199,133 @@ public class MaterialTabHost extends HorizontalScrollView {
 
         layout.removeAllViews();
 
-        if(!scrollable) { // not scrollable tabs
+
+        if (!scrollable) { // not scrollable tabs
             int tabWidth = this.getWidth() / tabs.size();
 
             // set params for resizing tabs width
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(tabWidth, HorizontalScrollView.LayoutParams.MATCH_PARENT);
             for (MaterialTab t : tabs) {
                 layout.addView(t.getView(), params);
             }
 
-        }
-        else { //scrollable tabs
+        } else { //scrollable tabs
 
-            for(int i = 0;i< tabs.size();i++) {
-                LinearLayout.LayoutParams params;
-                MaterialTab tab = tabs.get(i);
+            if(!isTablet) {
+                for (int i = 0; i < tabs.size(); i++) {
+                    LinearLayout.LayoutParams params;
+                    MaterialTab tab = tabs.get(i);
 
-                int tabWidth = (int) (tab.getTabMinWidth() + (24 * density)); // 12dp + text/icon width + 12dp
-                params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
+                    int tabWidth = (int) (tab.getTabMinWidth() + (24 * density)); // 12dp + text/icon width + 12dp
 
-                if(i == 0) {
-                    // first tab
-                    View view = new View(layout.getContext());
-                    view.setMinimumWidth((int) (60 * density));
-                    layout.addView(view);
-                }
+                    if (i == 0) {
+                        // first tab
+                        View view = new View(layout.getContext());
+                        view.setMinimumWidth((int) (60 * density));
+                        layout.addView(view);
+                    }
 
-                params = new LinearLayout.LayoutParams(tabWidth, LayoutParams.MATCH_PARENT);
-                layout.addView(tab.getView(),params);
+                    params = new LinearLayout.LayoutParams(tabWidth, HorizontalScrollView.LayoutParams.MATCH_PARENT);
+                    layout.addView(tab.getView(), params);
 
-                if(i == tabs.size() - 1) {
-                    // last tab
-                    View view = new View(layout.getContext());
-                    view.setMinimumWidth((int) (60 * density));
-                    layout.addView(view);
+                    if (i == tabs.size() - 1) {
+                        // last tab
+                        View view = new View(layout.getContext());
+                        view.setMinimumWidth((int) (60 * density));
+                        layout.addView(view);
+                    }
                 }
             }
+            else {
+                // is a tablet
+                for (int i = 0; i < tabs.size(); i++) {
+                    LinearLayout.LayoutParams params;
+                    MaterialTab tab = tabs.get(i);
 
+                    int tabWidth = (int) (tab.getTabMinWidth() + (48 * density)); // 24dp + text/icon width + 24dp
+
+                    params = new LinearLayout.LayoutParams(tabWidth, HorizontalScrollView.LayoutParams.MATCH_PARENT);
+                    layout.addView(tab.getView(), params);
+                }
+            }
         }
+
+        if (isTablet && scrollable) {
+            // if device is a tablet and have scrollable tabs add right and left arrows
+            Resources res = getResources();
+
+            left = new ImageButton(this.getContext());
+            left.setId(R.id.left);
+            left.setImageDrawable(res.getDrawable(R.drawable.left_arrow));
+            left.setBackgroundColor(Color.TRANSPARENT);
+            left.setOnClickListener(this);
+
+            // set 56 dp width and 48 dp height
+            RelativeLayout.LayoutParams paramsLeft = new LayoutParams((int)( 56 * density),(int) (48 * density));
+            paramsLeft.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            paramsLeft.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            paramsLeft.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            this.addView(left,paramsLeft);
+
+            right = new ImageButton(this.getContext());
+            right.setId(R.id.right);
+            right.setImageDrawable(res.getDrawable(R.drawable.right_arrow));
+            right.setBackgroundColor(Color.TRANSPARENT);
+            right.setOnClickListener(this);
+
+            RelativeLayout.LayoutParams paramsRight = new LayoutParams((int)( 56 * density),(int) (48 * density));
+            paramsRight.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            paramsRight.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            paramsRight.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            this.addView(right,paramsRight);
+
+            RelativeLayout.LayoutParams paramsScroll = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            paramsScroll.addRule(RelativeLayout.LEFT_OF, R.id.right);
+            paramsScroll.addRule(RelativeLayout.RIGHT_OF,R.id.left);
+            this.addView(scrollView,paramsScroll);
+        }
+        else {
+            // if is not a tablet add only scrollable content
+            RelativeLayout.LayoutParams paramsScroll = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            this.addView(scrollView,paramsScroll);
+        }
+
         this.setSelectedNavigationItem(0);
+    }
+
+    public MaterialTab getCurrentTab() {
+        for(MaterialTab tab : tabs) {
+            if (tab.isSelected())
+                return tab;
+        }
+
+        return null;
+    }
+
+    @Override
+    public void onClick(View v) { // on tablet left/right button clicked
+        int currentPosition = this.getCurrentTab().getPosition();
+
+        if (v.getId() == R.id.right && currentPosition < tabs.size() -1) {
+            currentPosition++;
+
+            // set next tab selected
+            this.setSelectedNavigationItem(currentPosition);
+
+            // change fragment
+            tabs.get(currentPosition).getTabListener().onTabSelected(tabs.get(currentPosition));
+            return;
+        }
+
+        if(v.getId() == R.id.left && currentPosition > 0) {
+            currentPosition--;
+
+            // set previous tab selected
+            this.setSelectedNavigationItem(currentPosition);
+            // change fragment
+            tabs.get(currentPosition).getTabListener().onTabSelected(tabs.get(currentPosition));
+            return;
+        }
+
     }
 }
