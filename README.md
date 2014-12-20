@@ -85,13 +85,12 @@ N.B. Your activity must <code>extends ActionBarActivity implements MaterialTabLi
 Add this to your build.gradle:
 ```java 
 dependencies {
-    compile 'it.neokree:MaterialTabs:0.9'
+    compile 'it.neokree:MaterialTabs:0.10'
 }
 ```
 
 <h3>Limitations</h3>
 Actually, this library have some limitations: 
-- No scrollable tabs for tablets
 - No selector animations
 
 These problems are currently in development
