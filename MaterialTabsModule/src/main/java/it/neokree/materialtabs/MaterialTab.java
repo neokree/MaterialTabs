@@ -107,11 +107,17 @@ public class MaterialTab implements View.OnTouchListener,Animator.AnimatorListen
 	}
 
 	public MaterialTab setText(CharSequence text) {
+        if(hasIcon)
+            throw new RuntimeException("You had setted tabs with icons, uses icons instead text");
+
 		this.text.setText(text.toString().toUpperCase(Locale.US));
         return this;
 	}
 	
 	public MaterialTab setIcon(Drawable icon) {
+        if(!hasIcon)
+            throw new RuntimeException("You had setted tabs without icons, uses text instead icons");
+
 		iconDrawable = icon;
 		
 		this.icon.setImageDrawable(icon);

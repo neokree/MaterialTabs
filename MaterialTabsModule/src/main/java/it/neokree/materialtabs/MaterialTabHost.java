@@ -141,8 +141,12 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
         // insert new tab in list
         tabs.add(tab);
 
-        if(tabs.size() == 4) {
+        if(tabs.size() == 4 && !hasIcons) {
             // switch tabs to scrollable before its draw
+            scrollable = true;
+        }
+
+        if(tabs.size() == 6 && hasIcons) {
             scrollable = true;
         }
 	}
