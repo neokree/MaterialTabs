@@ -95,6 +95,14 @@ Actually, this library have some limitations:
 
 These problems are currently in development
 
+### Fixed and Swipable tabs. 
+###### With text tabs
+[1 - 3] Fixed Tabs <br>
+[4 - &infin;] Scrollable Tabs
+###### With icon tabs
+[1 - 5] Fixed Tabs <br>
+[6 - &infin;] Scrollable Tabs
+
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen.png" alt="screenshot" width="300px" height="auto" />
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen-icon.png" alt="screenshot" width="300px" height="auto" />
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen-multitab.jpg" alt="screenshot" width="300px" height="auto" />
