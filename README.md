@@ -95,7 +95,7 @@ Actually, this library have some limitations:
 
 These problems are currently in development
 
-### Fixed and Swipable tabs. 
+### Fixed and Scrollable tabs. 
 ###### With text tabs
 [1 - 3] Fixed Tabs <br>
 [4 - &infin;] Scrollable Tabs
