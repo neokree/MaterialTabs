@@ -46,6 +46,8 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
     private LinearLayout layout;
     private ImageButton left;
     private ImageButton right;
+
+    private static int tabSelected;
 	
 	public MaterialTabHost(Context context) {
 		this(context, null);
@@ -88,6 +90,7 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
         scrollable = false;
         isTablet = this.getResources().getBoolean(R.bool.isTablet);
         density = this.getResources().getDisplayMetrics().density;
+        tabSelected = 0;
 
 		// initialize tabs list
 		tabs = new LinkedList<MaterialTab>();
@@ -173,15 +176,29 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
 
             // move the tab if it is slidable
             if(scrollable) {
-                int totalWidth = 0;//(int) ( 60 * density);
-                for (int i = 0; i < position; i++) {
-                    totalWidth += tabs.get(i).getView().getWidth();
-                }
-                scrollView.smoothScrollTo(totalWidth, 0);
+                scrollTo(position);
             }
+
+            tabSelected = position;
 		}
 		
 	}
+
+    private void scrollTo(int position) {
+        int totalWidth = 0;//(int) ( 60 * density);
+        for (int i = 0; i < position; i++) {
+            int width = tabs.get(i).getView().getWidth();
+            if(width == 0) {
+                if(!isTablet)
+                    width = (int) (tabs.get(i).getTabMinWidth() + (24 * density));
+                else
+                    width = (int) (tabs.get(i).getTabMinWidth() + (48 * density));
+            }
+
+            totalWidth += width;
+        }
+        scrollView.smoothScrollTo(totalWidth, 0);
+    }
 	
 	@Override
 	public void removeAllViews() {
@@ -189,6 +206,7 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
 			tabs.remove(i);
 		}
 		layout.removeAllViews();
+        super.removeAllViews();
 	}
 
     @Override
@@ -200,7 +218,7 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
 
 
     public void notifyDataSetChanged() {
-
+        super.removeAllViews();
         layout.removeAllViews();
 
 
@@ -294,7 +312,7 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
             this.addView(scrollView,paramsScroll);
         }
 
-        this.setSelectedNavigationItem(0);
+        this.setSelectedNavigationItem(tabSelected);
     }
 
     public MaterialTab getCurrentTab() {

@@ -25,7 +25,7 @@ import at.markushi.ui.RevealColorView;
  * @author neokree
  *
  */ 
-public class MaterialTab implements View.OnTouchListener,Animator.AnimatorListener {
+public class MaterialTab implements View.OnTouchListener {
 
     private final static int REVEAL_DURATION = 400;
     private final static int HIDE_DURATION = 500;
@@ -55,23 +55,38 @@ public class MaterialTab implements View.OnTouchListener,Animator.AnimatorListen
         this.hasIcon = hasIcon;
         density = ctx.getResources().getDisplayMetrics().density;
 		res = ctx.getResources();
-		
-		if(!hasIcon) {
-			// if there is no icon
-			completeView = LayoutInflater.from(ctx).inflate(R.layout.material_tab, null);
-			
-			text = (TextView) completeView.findViewById(R.id.text);
-		}
-		else {
-			// with icon
-			completeView = LayoutInflater.from(ctx).inflate(R.layout.material_tab_icon, null);
-			
-			icon = (ImageView) completeView.findViewById(R.id.icon);
-		}
-		
-		background = (RevealColorView) completeView.findViewById(R.id.reveal);
-		selector = (ImageView) completeView.findViewById(R.id.selector);
-		
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if(!hasIcon) {
+                completeView = LayoutInflater.from(ctx).inflate(R.layout.tab, null);
+
+                text = (TextView) completeView.findViewById(R.id.text);
+            }
+            else {
+                completeView = LayoutInflater.from(ctx).inflate(R.layout.tab_icon, null);
+
+                icon = (ImageView) completeView.findViewById(R.id.icon);
+            }
+
+            selector = (ImageView) completeView.findViewById(R.id.selector);
+        }
+        else {
+            if (!hasIcon) {
+                // if there is no icon
+                completeView = LayoutInflater.from(ctx).inflate(R.layout.material_tab, null);
+
+                text = (TextView) completeView.findViewById(R.id.text);
+            } else {
+                // with icon
+                completeView = LayoutInflater.from(ctx).inflate(R.layout.material_tab_icon, null);
+
+                icon = (ImageView) completeView.findViewById(R.id.icon);
+            }
+
+            background = (RevealColorView) completeView.findViewById(R.id.reveal);
+            selector = (ImageView) completeView.findViewById(R.id.selector);
+
+        }
 		// set the listener
 		completeView.setOnTouchListener(this);
 
@@ -89,7 +104,14 @@ public class MaterialTab implements View.OnTouchListener,Animator.AnimatorListen
 	
 	public void setPrimaryColor(int color) {
 		this.primaryColor = color;
-		background.setBackgroundColor(color);
+
+        if(deviceHaveRippleSupport()) {
+            background.setBackgroundColor(color);
+        }
+        else {
+            completeView.setBackgroundColor(color);
+        }
+
 	}
 	
 	public void setTextColor(int color) {
@@ -167,14 +189,48 @@ public class MaterialTab implements View.OnTouchListener,Animator.AnimatorListen
         lastTouchedPoint.y = (int) event.getY();
 
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            if(!deviceHaveRippleSupport()) {
+                completeView.setBackgroundColor(Color.argb(0x80, Color.red(accentColor), Color.green(accentColor), Color.blue(accentColor)));
+            }
+
             // do nothing
+            return true;
+        }
+
+        if(event.getAction() == MotionEvent.ACTION_CANCEL) {
+            if(!deviceHaveRippleSupport()) {
+                completeView.setBackgroundColor(primaryColor);
+            }
             return true;
         }
 
         // new effects
         if(event.getAction() == MotionEvent.ACTION_UP) {
-            // set the backgroundcolor
-            this.background.reveal(lastTouchedPoint.x, lastTouchedPoint.y, Color.argb(0x80, Color.red(accentColor), Color.green(accentColor), Color.blue(accentColor)) ,0,REVEAL_DURATION, this);
+
+            if(!deviceHaveRippleSupport()) {
+                completeView.setBackgroundColor(primaryColor);
+            }
+            else {
+                // set the backgroundcolor
+                this.background.reveal(lastTouchedPoint.x, lastTouchedPoint.y, Color.argb(0x80, Color.red(accentColor), Color.green(accentColor), Color.blue(accentColor)), 0, REVEAL_DURATION, new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        background.reveal(lastTouchedPoint.x, lastTouchedPoint.y, primaryColor, 0, HIDE_DURATION, null);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                    }
+                });
+            }
 
             // set the click
             if(listener != null) {
@@ -239,6 +295,16 @@ public class MaterialTab implements View.OnTouchListener,Animator.AnimatorListen
         return bounds.width();
    }
 
+    private boolean deviceHaveRippleSupport() {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
     private int getIconWidth() {
         return (int) (density * 24);
     }
@@ -252,26 +318,4 @@ public class MaterialTab implements View.OnTouchListener,Animator.AnimatorListen
         }
    }
 
-    // AnimatorListener methods
-    @Override
-    public void onAnimationStart(Animator animation) {
-        //this.background.setBackgroundColor(Color.argb(0x80, Color.red(accentColor), Color.green(accentColor), Color.blue(accentColor)));
-    }
-
-    @Override
-    public void onAnimationEnd(Animator animation) {
-        //this.background.setBackgroundColor(Color.TRANSPARENT);
-
-        this.background.reveal(lastTouchedPoint.x, lastTouchedPoint.y, primaryColor,0,HIDE_DURATION, null);
-    }
-
-    @Override
-    public void onAnimationCancel(Animator animation) {
-
-    }
-
-    @Override
-    public void onAnimationRepeat(Animator animation) {
-
-    }
 }
