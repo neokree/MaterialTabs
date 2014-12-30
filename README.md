@@ -5,8 +5,7 @@ Custom Tabs with Material Design animations for pre-Lollipop devices<br>
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialTabs-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1105)&ensp;&ensp;&ensp;&ensp;&ensp;[![Donate](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TLLU42DEL36RY)
 
 
-[Download example apk with Text](https://raw.github.com/neokree/MaterialTabs/master/materialtabs-Text.apk)<br>
-[Download example apk with Icon](https://raw.github.com/neokree/MaterialTabs/master/materialtabs-Icons.apk)
+[Download example apk](https://raw.github.com/neokree/MaterialTabs/master/example.apk)
 
 It requires 14+ API and android support v7 (Toolbar)
 
@@ -85,7 +84,7 @@ N.B. Your activity must <code>extends ActionBarActivity implements MaterialTabLi
 Add this to your build.gradle:
 ```java 
 dependencies {
-    compile 'it.neokree:MaterialTabs:0.10'
+    compile 'it.neokree:MaterialTabs:0.11'
 }
 ```
 
@@ -103,6 +102,7 @@ These problems are currently in development
 [1 - 5] Fixed Tabs <br>
 [6 - &infin;] Scrollable Tabs
 
-<img src="https://raw.github.com/neokree/MaterialTabs/master/screen.png" alt="screenshot" width="300px" height="auto" />
-<img src="https://raw.github.com/neokree/MaterialTabs/master/screen-icon.png" alt="screenshot" width="300px" height="auto" />
+<img src="https://raw.github.com/neokree/MaterialTabs/master/screen.jpg" alt="screenshot" width="300px" height="auto" />
+<img src="https://raw.github.com/neokree/MaterialTabs/master/screen-icon.jpg" alt="screenshot" width="300px" height="auto" />
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen-multitab.jpg" alt="screenshot" width="300px" height="auto" />
+<img src="https://raw.github.com/neokree/MaterialTabs/master/screen-tablet.jpg" alt="screenshot" width="600px" height="auto" />
