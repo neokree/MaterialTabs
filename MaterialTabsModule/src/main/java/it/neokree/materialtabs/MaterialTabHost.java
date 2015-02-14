@@ -41,6 +41,8 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
     private boolean isTablet;
     private float density;
     private boolean scrollable;
+    private boolean forceFixed;
+    private boolean forceScrollable;
 
     private HorizontalScrollView scrollView;
     private LinearLayout layout;
@@ -132,6 +134,24 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
 			tab.setIconColor(color);
 		}
 	}
+
+    public void setForceFixed(boolean force) {
+        this.forceFixed = force;
+
+        if (force) {
+            forceScrollable = false;
+            scrollable = false;
+        }
+    }
+
+    public void setForceScrollable(boolean force) {
+        this.forceScrollable = force;
+
+        if (force) {
+            forceFixed = false;
+            scrollable = true;
+        }
+    }
 	
 	public void addTab(MaterialTab tab) {
         // add properties to tab
@@ -144,12 +164,12 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
         // insert new tab in list
         tabs.add(tab);
 
-        if(tabs.size() == 4 && !hasIcons) {
+        if(tabs.size() == 4 && !hasIcons && !forceFixed) {
             // switch tabs to scrollable before its draw
             scrollable = true;
         }
 
-        if(tabs.size() == 6 && hasIcons) {
+        if(tabs.size() == 6 && hasIcons && !forceFixed) {
             scrollable = true;
         }
 	}
