@@ -102,6 +102,11 @@ These problems are currently in development
 [1 - 5] Fixed Tabs <br>
 [6 - &infin;] Scrollable Tabs
 
+# Developer notes
+Hi!
+As all can see, this library has multiple problems. I'm working for redo all the code and publish an official release that is usable.
+This mean this current version is no longer maintained and I will not do any bug fix for it.
+
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen.jpg" alt="screenshot" width="300px" height="auto" />
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen-icon.jpg" alt="screenshot" width="300px" height="auto" />
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen-multitab.jpg" alt="screenshot" width="300px" height="auto" />
