@@ -9,6 +9,11 @@ Custom Tabs with Material Design animations for pre-Lollipop devices<br>
 
 It requires 14+ API and android support v7 (Toolbar)
 
+# Developer notes
+Hi!
+As all can see, this library has multiple problems. I'm working for redo all the code and publish an official release that is usable.
+This mean this current version is no longer maintained and I will not do any bug fix for it.
+
 Dependency: [Android-UI](https://github.com/markushi/android-ui) Reveal Color View <br>
 If you are using MaterialTabs in your app and would like to be listed here, please let me know via [email](mailto:neokree@gmail.com)! <br>
 
@@ -101,11 +106,6 @@ These problems are currently in development
 ###### With icon tabs
 [1 - 5] Fixed Tabs <br>
 [6 - &infin;] Scrollable Tabs
-
-# Developer notes
-Hi!
-As all can see, this library has multiple problems. I'm working for redo all the code and publish an official release that is usable.
-This mean this current version is no longer maintained and I will not do any bug fix for it.
 
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen.jpg" alt="screenshot" width="300px" height="auto" />
 <img src="https://raw.github.com/neokree/MaterialTabs/master/screen-icon.jpg" alt="screenshot" width="300px" height="auto" />
