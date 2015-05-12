@@ -46,6 +46,9 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
     private LinearLayout layout;
     private ImageButton left;
     private ImageButton right;
+    private int indicatorColor = 0xFF666666;
+	private int underlineColor = 0x1A000000;
+	private int dividerColor = 0x1A000000;
 
     private static int tabSelected;
 	
