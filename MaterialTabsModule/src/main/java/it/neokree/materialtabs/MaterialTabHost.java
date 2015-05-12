@@ -85,9 +85,9 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
                 indicatorHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, indicatorHeight, dm);
 		underlineHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, underlineHeight, dm);
 		dividerPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dividerPadding, dm);
-		indicatorHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsIndicatorHeight, indicatorHeight);
-		underlineHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsUnderlineHeight, underlineHeight);
-		dividerPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsDividerPadding, dividerPadding);
+		indicatorHeight = a.getDimensionPixelSize(R.styleable.MaterialTabHost_pstsIndicatorHeight, indicatorHeight);
+		underlineHeight = a.getDimensionPixelSize(R.styleable.MaterialTabHost_pstsUnderlineHeight, underlineHeight);
+		dividerPadding = a.getDimensionPixelSize(R.styleable.MaterialTabHost_pstsDividerPadding, dividerPadding);
                 textColor = a.getColor(R.styleable.MaterialTabHost_textColor,Color.WHITE);
 			} finally {
 				a.recycle();
