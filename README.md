@@ -9,10 +9,8 @@ Custom Tabs with Material Design animations for pre-Lollipop devices<br>
 
 It requires 14+ API and android support v7 (Toolbar)
 
-# Developer notes
-Hi!
-As all can see, this library has multiple problems. I'm working for redo all the code and publish an official release that is usable.
-This mean this current version is no longer maintained and I will not do any bug fix for it.
+## IMPORTANT NOTICE
+This library is no longer supported.<BR>If someone wants to keep alive this library please contact me in private [neokree@gmail.com](mailto:neokree@gmail.com)
 
 Dependency: [Android-UI](https://github.com/markushi/android-ui) Reveal Color View <br>
 If you are using MaterialTabs in your app and would like to be listed here, please let me know via [email](mailto:neokree@gmail.com)! <br>
