@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.util.TypedValue;
+
 
 
 /**
@@ -46,6 +48,9 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
     private LinearLayout layout;
     private ImageButton left;
     private ImageButton right;
+    private int indicatorColor = 0xFF666666;
+	private int underlineColor = 0x1A000000;
+	private int dividerColor = 0x1A000000;
 
     private static int tabSelected;
 	
@@ -77,6 +82,12 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
                 primaryColor = a.getColor(R.styleable.MaterialTabHost_materialTabsPrimaryColor, Color.parseColor("#009688"));
                 accentColor = a.getColor(R.styleable.MaterialTabHost_accentColor,Color.parseColor("#00b0ff"));
                 iconColor = a.getColor(R.styleable.MaterialTabHost_iconColor,Color.WHITE);
+                indicatorHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, indicatorHeight, dm);
+		underlineHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, underlineHeight, dm);
+		dividerPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dividerPadding, dm);
+		indicatorHeight = a.getDimensionPixelSize(R.styleable.MaterialTabHost_pstsIndicatorHeight, indicatorHeight);
+		underlineHeight = a.getDimensionPixelSize(R.styleable.MaterialTabHost_pstsUnderlineHeight, underlineHeight);
+		dividerPadding = a.getDimensionPixelSize(R.styleable.MaterialTabHost_pstsDividerPadding, dividerPadding);
                 textColor = a.getColor(R.styleable.MaterialTabHost_textColor,Color.WHITE);
 			} finally {
 				a.recycle();
@@ -132,6 +143,75 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
 			tab.setIconColor(color);
 		}
 	}
+	public void setIndicatorColor(int indicatorColor) {
+		this.indicatorColor = indicatorColor;
+		invalidate();
+	}
+
+	public void setIndicatorColorResource(int resId) {
+		this.indicatorColor = getResources().getColor(resId);
+		invalidate();
+	}
+
+	public int getIndicatorColor() {
+		return this.indicatorColor;
+	}
+
+	public void setIndicatorHeight(int indicatorLineHeightPx) {
+		this.indicatorHeight = indicatorLineHeightPx;
+		invalidate();
+	}
+
+	public int getIndicatorHeight() {
+		return indicatorHeight;
+	}
+
+	public void setUnderlineColor(int underlineColor) {
+		this.underlineColor = underlineColor;
+		invalidate();
+	}
+
+	public void setUnderlineColorResource(int resId) {
+		this.underlineColor = getResources().getColor(resId);
+		invalidate();
+	}
+
+	public int getUnderlineColor() {
+		return underlineColor;
+	}
+
+	public void setDividerColor(int dividerColor) {
+		this.dividerColor = dividerColor;
+		invalidate();
+	}
+
+	public void setDividerColorResource(int resId) {
+		this.dividerColor = getResources().getColor(resId);
+		invalidate();
+	}
+
+	public int getDividerColor() {
+		return dividerColor;
+	}
+
+	public void setUnderlineHeight(int underlineHeightPx) {
+		this.underlineHeight = underlineHeightPx;
+		invalidate();
+	}
+
+	public int getUnderlineHeight() {
+		return underlineHeight;
+	}
+
+	public void setDividerPadding(int dividerPaddingPx) {
+		this.dividerPadding = dividerPaddingPx;
+		invalidate();
+	}
+
+	public int getDividerPadding() {
+		return dividerPadding;
+	}
+
 	
 	public void addTab(MaterialTab tab) {
         // add properties to tab
@@ -314,6 +394,8 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
 
         this.setSelectedNavigationItem(tabSelected);
     }
+    
+    
 
     public MaterialTab getCurrentTab() {
         for(MaterialTab tab : tabs) {
