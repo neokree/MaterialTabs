@@ -78,17 +78,33 @@ public class TextTabActivity extends ActionBarActivity implements MaterialTabLis
         }
 
         public Fragment getItem(int num) {
-            return new FragmentText();
+            //return new FragmentText();
+            switch (num) {
+                case 0:
+                    FragmentText ft = new FragmentText();
+                    return ft;
+                case 1:
+                    FragmentTextTwo ftw = new FragmentTextTwo();
+                    return ftw;
+                default:
+                    return null;
+            }
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Sezione " + position;
+            switch (position) {
+                case 0:
+                    return "tab 1";
+                case 1:
+                    return "tab 2";
+                default: return null;
+            }
         }
 
     }
