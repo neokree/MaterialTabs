@@ -350,4 +350,14 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
         }
 
     }
+    public List<MaterialTab> getTabs() {
+        return tabs;
+    }
+
+    public void setTabs(List<MaterialTab> tabs) {
+        this.tabs = tabs;
+    }
+    public MaterialTab gettabon(int position){
+        return tabs.get(position);
+    }
 }
