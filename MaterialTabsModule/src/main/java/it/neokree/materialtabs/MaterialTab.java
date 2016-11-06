@@ -318,4 +318,11 @@ public class MaterialTab implements View.OnTouchListener {
         }
    }
 
+    public Drawable getIconDrawable() {
+        return iconDrawable;
+    }
+
+    public void setIconDrawable(Drawable iconDrawable) {
+        this.iconDrawable = iconDrawable;
+    }
 }
