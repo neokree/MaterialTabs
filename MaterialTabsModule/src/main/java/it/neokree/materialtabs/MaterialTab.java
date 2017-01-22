@@ -27,8 +27,9 @@ import at.markushi.ui.RevealColorView;
  */ 
 public class MaterialTab implements View.OnTouchListener {
 
-    private final static int REVEAL_DURATION = 400;
-    private final static int HIDE_DURATION = 500;
+    // Not Final to Edit Parrameters
+    private int REVEAL_DURATION = 400;
+    private int HIDE_DURATION = 500;
 	
 	private View completeView;
 	private ImageView icon;
@@ -43,7 +44,8 @@ public class MaterialTab implements View.OnTouchListener {
 	private int textColor;
 	private int iconColor;
 	private int primaryColor;
-	private int accentColor;
+    private int accentColor;
+    private int rippleColor;
 
 	private boolean active;
 	private int position;
@@ -100,6 +102,7 @@ public class MaterialTab implements View.OnTouchListener {
 		this.accentColor = color;
         this.textColor = color;
         this.iconColor = color;
+        this.rippleColor = Color.argb(0x80, Color.red(color), Color.green(color), Color.blue(color));
 	}
 	
 	public void setPrimaryColor(int color) {
@@ -182,15 +185,26 @@ public class MaterialTab implements View.OnTouchListener {
 		return active;
 	}
 
+
+    public void setRippleDuration (int REVEAL_DURATION, int HIDE_DURATION) {
+        this.REVEAL_DURATION = REVEAL_DURATION;
+        this.HIDE_DURATION = HIDE_DURATION;
+    }
+    public void setRippleColor (int rippleColor, int rippleAlpha) {
+        this.rippleColor = Color.argb(rippleAlpha, Color.red(rippleColor), Color.green(rippleColor), Color.blue(rippleColor))
+    }
+
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
         lastTouchedPoint = new Point();
 		lastTouchedPoint.x = (int) event.getX();
         lastTouchedPoint.y = (int) event.getY();
 
+        int rippleColor = this.rippleColor;
+
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
             if(!deviceHaveRippleSupport()) {
-                completeView.setBackgroundColor(Color.argb(0x80, Color.red(accentColor), Color.green(accentColor), Color.blue(accentColor)));
+                completeView.setBackgroundColor(rippleColor);
             }
 
             // do nothing
@@ -212,7 +226,7 @@ public class MaterialTab implements View.OnTouchListener {
             }
             else {
                 // set the backgroundcolor
-                this.background.reveal(lastTouchedPoint.x, lastTouchedPoint.y, Color.argb(0x80, Color.red(accentColor), Color.green(accentColor), Color.blue(accentColor)), 0, REVEAL_DURATION, new Animator.AnimatorListener() {
+                this.background.reveal(lastTouchedPoint.x, lastTouchedPoint.y, rippleColor, 0, REVEAL_DURATION, new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
                     }
