@@ -1,1 +1,1 @@
-Saya mencoba tutorial git remote
+diganti ke repositori lokal
