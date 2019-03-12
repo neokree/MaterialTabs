@@ -199,13 +199,11 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
         }
         scrollView.smoothScrollTo(totalWidth, 0);
     }
-	
+
 	@Override
 	public void removeAllViews() {
-		for(int i = 0; i<tabs.size();i++) {
-			tabs.remove(i);
-		}
-		layout.removeAllViews();
+        tabs.clear();
+        layout.removeAllViews();
         super.removeAllViews();
 	}
 
