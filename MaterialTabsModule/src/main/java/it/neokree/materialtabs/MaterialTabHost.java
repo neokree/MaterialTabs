@@ -202,8 +202,8 @@ public class MaterialTabHost extends RelativeLayout implements View.OnClickListe
 	
 	@Override
 	public void removeAllViews() {
-	    tabs.clear();
-		layout.removeAllViews();
+        tabs.clear();
+        layout.removeAllViews();
         super.removeAllViews();
 	}
 
